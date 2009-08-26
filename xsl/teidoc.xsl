@@ -36,7 +36,7 @@
 							<nobr>TEI</nobr>
 						</td>
 						<td>
-							<a href="{$cocoonbase}/item/{//id}/wordml">
+							<a href="{$cocoonbase}/item/{//id}/tei">
 								[TEI document]
 							</a>
 						</td>
