@@ -1,0 +1,113 @@
+<html>
+ <head>
+  <script src=js/highlight.js></script>
+  <script src=js/selection.js></script>
+  <script src=/jquery/jquery.js></script>
+  <script>
+	var root;
+	$(document).ready(function() {
+		root = $("#root")[0];
+		$("a#r1").click(function() {
+			highlight(root, [ {
+				startElems: [1,2,1],
+				endElems: [1,2,1],
+				startWord: 2,
+				endWord: 3,
+				title: "",
+				href: ".",
+				recordID: 1
+			} ]);
+			return false;
+		});
+		$("a#r2").click(function() {
+			highlight(root, [ {
+				startElems: [2,2],
+				endElems: [2,2],
+				startWord: 2,
+				endWord: 7,
+				title: "",
+				href: ".",
+				recordID: 2
+			} ]);
+			return false;
+		});
+
+		$("input[value=add]").click(function() {
+			$("#refs")[0].innerHTML +=
+				"[" + $("#start-elem").val() + "]:" + $("#start-word").val() + " - " +
+				"[" + $("#end-elem").val() + "]:" + $("#end-word").val() + "<br>\n";
+		});
+
+		$("input[value=highlight]").click(function() {
+			var refs = [];
+			var refStrings = $("#refs").text().split("\n");
+			for (var i = 0; i < refStrings.length; ++i) {
+				var matches = refStrings[i].match(/\[([\d,]+)\]:(\d+) - \[([\d,]+)\]:(\d+)/);
+				if (matches) {
+					refs.push( {
+						startElems: eval("[" + matches[1] + "]"),
+						endElems: eval("[" + matches[3] + "]"),
+						startWord: parseInt(matches[2]),
+						endWord: parseInt(matches[4]),
+						title: "",
+						href: ".",
+						recordID: 1234
+					} );
+				}
+			}
+			highlight(root, refs);
+		});
+
+		$("input[value=get selection]").click(function() {
+			var sel = getSelectionAddress(root);
+			$("#start-elem").val(sel.startElems.join(","));
+			$("#start-word").val(sel.startWord);
+			$("#end-elem").val(sel.endElems.join(","));
+			$("#end-word").val(sel.endWord);
+		});
+	});
+  </script>
+ <style>
+	a.annotation {
+		background-color: #ffffc0;
+	}
+	a.annotation.multiple {
+		background-color: #ffff70;
+	}
+ </style>
+ </head>
+ <body>
+  <p><a href=# id=r1>[1,2,1]:2 - [1,2,1]:3</a></p>
+  <p><a href=# id=r2>[2,2]:2 - [2,2]:7</a></p>
+  <p>
+   <input type=button value="get selection"></input>
+  </p>
+  <p>
+   [<input id=start-elem></input>]: <input id=start-word></input>
+   -
+   [<input id=end-elem></input>]: <input id=end-word></input>
+   <input type=button value=add></input>
+  </p>
+  <p id=refs></p>
+  <p>
+   <input type=button value=highlight></input>
+  </p>
+  <hr>
+  <div id=root>
+   <div>
+    <h2>Heading</h2>
+    <p>We got <i>into Port Jackson early in the afternoon,</i> and had the satisfaction of finding the finest harbour in the world, in which a thousand sail of the line may ride in the most perfect security... The different coves were examined with all possible expedition. I fixed on the one that had the best spring of water, and in which the ships can anchor so close to the shore that at a very small expence [sic] quays may be made at which the largest ships may unload.</p>
+    <p>
+We got into Port Jackson early in the afternoon,
+and had the satisfaction of finding the finest harbour in the world,
+in which a thousand sail of the line may ride in the most perfect security... The different coves were examined with all possible expedition. I fixed on the one that had the best spring of water, and in which the ships can anchor so close to the shore that at a very small expence [sic] quays may be made at which the largest ships may unload.
+</p>
+   </div>
+   <div>
+    <h2>Second Heading</h2>
+    <p>We got into <b>Port Jackson</b> early in the afternoon, and had the satisfaction of finding the finest harbour in the world, in which a thousand sail of the line may ride in the most perfect security... The different coves were examined with all possible expedition. I fixed on the one that had the best spring of water, and in which the ships can anchor so close to the shore that at a very small expence [sic] quays may be made at which the largest ships may unload.</p>
+    <p>We got into Port Jackson early in the afternoon, and had the satisfaction of finding the <i>finest harbour in the world</i>, in which a thousand sail of the line may ride in the most perfect security... The different coves were examined with all possible expedition. I fixed on the one that had the best spring of water, and in which the ships can anchor <i>so close to the shore that at a <b>very small expence [sic]</b> quays may be made at which the largest ships may unload.</i></p>
+   </div>
+  </div>
+ </body>
+</html>

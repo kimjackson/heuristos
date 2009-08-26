@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+<title>Multimedia Annotations</title>
+<script src=http://hapi.heuristscholar.org/load?instance=dos&key=f3160ae5628fad94e4a57bec1c329ce3a03e609d&v=d></script>
+<script>
+
+/* This will retrieve all TEI Document References (aka Annotations) of type Annotation Media for a given entry and display them in the table */
+/* Author: Maria Shvedova */
+
+function getParams (name){
+	var regexS = "[\\?&]"+name+"=([^&#]*)";
+	var regex = new RegExp( regexS );
+	var results = regex.exec( window.location.search );
+	if( results == null ) {
+		return;
+	} else {
+		return results[1];
+	}
+}
+
+function ssearch() {
+		var loader = new HLoader(
+			function(s,r) {
+				displayResults(r);
+			},
+			function(s,e) {
+				alert("load failed: " + e);
+			}
+		);
+		//f:359:\"Annotation Multimedia\"
+		loadAllRecords("type:99 sortby:id", null, loader);
+}
+
+function loadAllRecords(query, options, loader) {
+		var records = [];
+		var baseSearch = new HSearch(query, options);
+		var bulkLoader = new HLoader(
+			function(s, r) {	// onload
+				records.push.apply(records, r);
+				if (r.length < 100) {
+					// we've loaded all the records: invoke the original loader's onload
+					loader.onload(baseSearch, records);
+				}
+				else { // more records to retrieve
+					//  do a search with an offset specified for retrieving the next page of records
+					var search = new HSearch(query + " offset:"+records.length, options);
+					HeuristScholarDB.loadRecords(search, bulkLoader);
+				}
+			},
+			loader.onerror
+		);
+		HeuristScholarDB.loadRecords(baseSearch, bulkLoader);
+}
+
+function displayResults(r) {
+
+	var tbl = document.getElementById("results");
+
+	var recId = getParams("id");
+	var count = 0;
+	for (var i = 0; i < r.length; i++) {
+		var annotationType = r[i].getDetail(HDetailManager.getDetailTypeById(359));
+		var caption = r[i].getDetail(HDetailManager.getDetailTypeById(191));
+		var notes = r[i].getDetail(HDetailManager.getDetailTypeById(303));
+		var annotates = r[i].getDetail(HDetailManager.getDetailTypeById(322)).getID();
+		var target = r[i].getDetail(HDetailManager.getDetailTypeById(199));
+		var image_reference = r[i].getDetail(HDetailManager.getDetailTypeById(508));
+
+		if ((recId && annotates == recId) && annotationType == "Annotation Multimedia") {
+			var class = (count % 2 == 1) ? "alternate" : "";
+			var html = "";
+			html += "<tr class = \"" + class + "\">";
+			html += "<td width=\"5%\"><b>"+ r[i].getID() +"</b></td>";
+			html += "<td width=\"19%\"><b>"+ r[i].getTitle() +"</b></td>";
+			html += "<td width=\"19%\">"+ (caption != null ? caption : "") +"</td>";
+			html += "<td width=\"19%\">"+ (notes != null ? notes : "") +"</td>";
+			html += "<td width=\"19%\" id = \"im"+ r[i].getID() +"\"></td>";
+			html += "<td width=\"19%\"></td>";
+			html += "</tr>";
+			tbl.innerHTML += html;
+			count ++ ;
+			gatherImages(r[i].getID(), target, image_reference);
+		}
+
+
+	}
+	if (count == 0) {
+			tbl.innerHTML = "<tr><td colspan=5><i>No Multimedia Annotations found for document with id: " + recId + "</i></td></tr>";
+	}
+
+}
+
+function gatherImages(rid, target, image_reference){
+//if there is no image reference, render target
+	var cell = document.getElementById("im" + rid);
+
+	if (target || image_reference) {
+		var loader = new HLoader(
+			function(s,r) {
+				renderImage(r[0], rid);
+			},
+			function(s,e) {
+				alert("load failed: " + e);
+			}
+		);
+		HeuristScholarDB.loadRecords(new HSearch("id:" + (image_reference ? image_reference.getID() : target.getID())), loader);
+	} else {
+		cell.innerHTML = "";
+	}
+}
+
+function renderImage(record, rid){
+ //if record is not of type 74 , dismiss
+ 	var cell0 = document.getElementById("im" + rid);
+ 	if (record.getRecordType(HRecordTypeManager.getRecordTypeById(74))){
+		var thumb = record.getDetail(HDetailManager.getDetailTypeById(221));
+		if (thumb) {
+			cell0.innerHTML += "<img src=\"" + thumb.getThumbnailURL() + "\">";
+		} else {
+			cell0.innerHTML += "";
+		}
+	}
+}
+</script>
+<style>
+  	html, table, td, input{
+   	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+   }
+   .header {
+   background-color:#F8E061;
+   font-weight: bold;
+   }
+   .alternate {
+   background-color:#E0E0E0;
+   }
+</style>
+</head>
+
+
+
+<body onload="ssearch();">
+<table width="95%">
+<tr class="header"><td width="5%">Id</td><td width="19%">Title</td><td width="19%">Caption</td><td width="19%">Notes</td><td width="19%">Image</td><td width="19%">Number</td></tr>
+<tr><td colspan="6">
+<table width="100%">
+<tbody id=results valign="top">
+</tbody>
+</table>
+</td></tr>
+</table>
+</body>
+</html>

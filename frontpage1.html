@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:str="http://exslt.org/strings">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lachlan Macquarie</title>
+<style type="text/css">
+					/***** HEADINGS AND GENERIC FONT STYLING *****/
+
+					H1 { font-family: Arial, Verdana, Helvetica; color:#0096E3; font-size: 12pt; vertical-align: middle}
+
+
+
+
+
+
+					/***** STYLING FOR FORM FIELD ELEMENTS *****/
+
+
+
+
+
+					/***** THESE ROW AND CELL STYLES BELOW ARE TO BE USED TO CONTROL BRANDING COLOURS *****/
+
+					.colourcellone  { font-family: Arial, Helvetica, Verdana; color:#FFF; font-size: 10pt; font-weight: bold; background-color: #0096E3 }
+					.colourcelltwo { font-family: Arial, Helvetica, Verdana; color:#FFF; font-size: 10pt; background-color: #888888 }
+					.colourcellthree { font-family: Arial, Helvetica, Verdana; color:#333; font-size: 10pt; background-color: #EFEFEF }
+					.colourcellfour { font-family: Arial, Helvetica, Verdana; color:#333; font-size: 10pt; background-color: #B1B1B1 }
+					.colourcellfive { font-family: Arial, Helvetica, Verdana; color:#FFF; font-size: 10pt; background-color: #EEAC03 }
+					.colourcellsix { font-family: Arial, Helvetica, Verdana; color:#333; font-size: 10pt; background-color: #F8E061 }
+					.colourcellseven { font-family: Arial, Helvetica, Verdana; color:#333; font-size: 10pt; background-color: #DCE9FB }
+					.sb_divider {margin-bottom: 6px };
+
+
+
+					-->
+				</style>
+                <style>
+					html {
+					overflow: auto;
+					}
+
+					body {
+					padding: 0;
+					margin: 0;
+					width: 100%;
+					height: 100%;
+					overflow: auto;
+					}
+
+					td{
+					padding-left:5px;
+
+					}
+
+					#logo {
+					padding: 0;
+					margin: 0;
+					position: absolute;
+					top: 0px;
+					right: 0px;
+					width: 200px;
+					height: 100px;
+					overflow: auto;
+					/* IE only */
+					height: expression(document.documentElement.clientHeight-100);
+					}
+
+
+                   .help{
+				      width:100px;
+				      height:50px;
+					  background-color:#CCCCCC;
+					  font-size:30px;
+					  font-style:italic;
+					  vertical-align:middle;
+					  padding-left:20px;
+				   }
+                  .mainlink{
+				  font-size:20px;
+				  }
+				  .maindiv{
+				   width:450px;
+				   height:120px;
+				   background-color:#CCCCCC;
+				   padding-left:10px;
+
+				  }
+				  .main{
+				   width:500px;
+				   height:200px;
+			       padding-left:120px;
+				   vertical-align:top;
+				   padding-top:22px;
+
+				  }
+				  .searcharea{
+				   width:250px;
+				   height:50px;
+			       padding-left:100px;
+				   vertical-align:top;
+				   padding-top:30px;
+				  }
+				  .searchresult{
+				   width:250px;
+				   height:200px;
+			       padding-left:100px;
+				   vertical-align:top;
+				   padding-top:5px;
+				   overflow:auto;
+				   }
+
+
+</style>
+<script src=/dos/hapi/common-data></script>
+<script src=/dos/hapi/user-data></script>
+<script src=/dos/hapi/hapi.js></script>
+<script>
+var path = "http://heuristscholar.org/dos/";
+var individualpath = "http://heuristscholar.org/cocoon/dos/browser/item/";
+function doSearch(popularquery){
+    var strSearch;
+	if(popularquery)
+		strSearch = popularquery;
+	else
+		strSearch= document.getElementById("queryinput").value;
+
+	if(strSearch==""){
+		alert("Please enter a searching query");
+		return;
+	}
+	var mysearch = new HSearch(strSearch);
+
+		var loader = new HLoader(
+			function(s,r) {
+				displayResults(r);
+			},
+			function(s,e) {
+				alert("load failed: " + e);
+			});
+		HeuristScholarDB.loadRecords(mysearch, loader);
+
+	function displayResults(r){ //empty result brings? Output a message!
+	    var div = document.getElementById("searchresult");
+		div.innerHTML = "";
+		if (r.length ==0) div.innerHTML= "No results found";
+		for (var i = 0; i < r.length; i++) {
+		    var recImage = r[i].getRecordType().getID();
+			var recId = r[i].getID();
+			var recTitle =r[i].getTitle();
+	        var newdiv = document.createElement('div');
+			//newdiv.setAttribute("class", "mini-pad");
+			newdiv.innerHTML += "<img src=\""+ path +"img/reftype/"+recImage+".gif\" align=absmiddle> <a href=\""+individualpath+recId+"\">"+recTitle +"</a></span>";
+	        div.appendChild(newdiv);//append new div right after embedding code div
+	    }
+	}
+
+}
+</script>
+</head>
+<body>
+<table width="100%" height="20%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="100px" colspan="2">
+		<div id="logo">
+		<img align="center" src="/dos/img/logo.png"></div>
+		</div>
+	</td>
+  </tr>
+  <tr>
+    <td height="20px" colspan="2" class="colourcelltwo">
+	</td>
+  </tr>
+</table>
+<table width="134%" height="535">
+  <tr>
+     <td width="58%"  height="303" valign="top"><div class="main">
+       <h1>Popular searches
+		</h1>
+			<div class="maindiv">
+				  <a href="#" class="mainlink" onClick="doSearch('type:entity')">Search1</a> <br>
+                  <a href="#" class="mainlink" onClick="doSearch('id:5542')">Search2</a>  <br>
+                  <a href="#" class="mainlink" onClick="doSearch('type:term')">Search3</a>  <br>
+            </div>
+	   </div>
+    </td>
+	 <td width="42%">
+		 <div class="searcharea">
+		   <input type="text" id="queryinput" onkeypress="if (event.which==13 || event.keycode==13) doSearch();">
+		   <input value="search" type="button" onClick="doSearch();">
+		   <div style="padding-left:150px"><a href="#" onClick="alert('Coming soon!');" title="Coming soon"> (Advanced)</a> </div>
+		 </div>
+		 <div id="searchresult" class="searchresult"></div>
+	 </td>
+  </tr>
+  <tr>
+     <td>
+		<div class="main">
+			  <h1>Add new </h1>
+			  <div class="maindiv">
+				   <img src="http://heuristscholar.org/dos/img/reftype/152.gif" align=absmiddle>&nbsp;
+				   <a class="mainlink" href="edit.html?typeId=152" onclick="window.open(this.href,'','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Term">Term</a> <br>
+				   <img src="http://heuristscholar.org/dos/img/reftype/74.gif" align=absmiddle>&nbsp;
+				   <a class="mainlink" href="edit.html?typeId=74" onclick="window.open(this.href,'','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Multimedia item">Multimedia item </a><br>
+				   <img src="http://heuristscholar.org/dos/img/reftype/151.gif" align=absmiddle>&nbsp;
+				   <a class="mainlink" href="edit.html?typeId=151" onclick="window.open(this.href,'','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Entity">Entity</a><br>
+			  </div>
+	   </div>
+    </td>
+     <td style="padding-left:100px "><div class="help">
+       <div align="center"><a href="#" >Help?</a></div>
+     </div>
+     </td>
+  </tr>
+</table>
+</body>
+</html>
