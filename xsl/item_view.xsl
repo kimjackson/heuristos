@@ -515,7 +515,9 @@
 						var finish = val.getDetail(HDetailManager.getDetailTypeById(178));
 
 						elts.innerHTML += "&lt;p&gt;" + title + "&lt;/p&gt;";
-						elts.innerHTML += "&lt;p&gt;" + notes.replace(/\n/g, "&lt;br/&gt;\n") + "&lt;/p&gt;";
+						if (notes) {
+							elts.innerHTML += "&lt;p&gt;" + notes.replace(/\n/g, "&lt;br/&gt;\n") + "&lt;/p&gt;";
+						}
 						elts.innerHTML += "&lt;p&gt;" + start + (finish ? " - " + finish : "") + "&lt;/p&gt;";
 
 						if (val.getRecordType().getID() == 74) {
