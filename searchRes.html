@@ -83,7 +83,7 @@ function doSearch(){
 			var recTitle =r[i].getTitle();
 	        var newdiv = document.createElement('div');
 			newdiv.setAttribute("class", "mini-pad");
-			newdiv.innerHTML += "<span class=\"clickable\" onClick=\"pickMe("+recId+",'"+recTitle+"',"+rec_det_id+","+extra+");\">" +recId + " <img src=\""+ path +"img/reftype/"+recImage+".gif\" align=absmiddle> " +recTitle +"</span>";
+			newdiv.innerHTML += "<span class=\"clickable\" onClick=\"pickMe("+recId+",'"+escape(recTitle)+"',"+rec_det_id+","+extra+");\">" +recId + " <img src=\""+ path +"img/reftype/"+recImage+".gif\" align=absmiddle> " +recTitle +"</span>";
 	        div.appendChild(newdiv);//append new div right after embedding code div
 	    }
 	}
@@ -95,7 +95,7 @@ function pickMe(rid, rtitle, r_d_id, extra){
  var elts = window.opener.document.getElementsByName(r_d_id);
  for (l = 0;  l<elts.length; l++ ){
   if (elts[l].getAttribute("extra") == extra){
-   elts[l].value = rtitle;
+   elts[l].value = unescape(rtitle);
    elts[l].setAttribute("recid", rid);
    elts[l].onchange();
   }
