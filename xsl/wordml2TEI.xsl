@@ -2,7 +2,8 @@
   xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
   xmlns:o="urn:schemas-microsoft-com:office:office"
   xmlns:aml ="http://schemas.microsoft.com/aml/2001/core"
-  xmlns:wx="http://schemas.microsoft.com/office/word/2003/auxHint" exclude-result-prefixes="w o wx ">
+  xmlns:wx="http://schemas.microsoft.com/office/word/2003/auxHint"
+  exclude-result-prefixes="w o aml wx">
 <!-- NOTES
   This stylesheet attempts to convert wordML to TEI to the best of its capacities. To facilitate its capacities, in the original word document you should:
   -> Eliminate the footer on the document
@@ -144,6 +145,8 @@
     <!-- don't do anything -->
   </xsl:template>
 
+  <xsl:template match="w:proofErr"/>
+
   <!-- Convert <w:p> paragraphs to <p> paragraphs -->
   <xsl:template match="w:p">
     <p>
@@ -205,13 +208,24 @@
             <xsl:apply-templates mode="pict"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:copy-of select="w:t/text()"/>
+            <xsl:apply-templates select="w:t|w:br"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template match="w:t">
+    <xsl:apply-templates select="text()|w:br"/>
+  </xsl:template>
+
+  <xsl:template match="w:t/text()">
+    <xsl:copy-of select="."/>
+  </xsl:template>
+
+  <xsl:template match="w:br">
+    <lb/>
+  </xsl:template>
 
   <xsl:template match="w:endnote|w:footnote" mode="endnote">
     <note>
@@ -315,12 +329,12 @@
         </list>
       </xsl:otherwise>
     </xsl:choose>
-    <xsl:apply-templates select="w:pPr"></xsl:apply-templates>
-    <xsl:apply-templates select="w:r" ></xsl:apply-templates>
+    <xsl:apply-templates select="w:pPr"/>
+    <xsl:apply-templates select="w:r"/>
   </xsl:template>
 
-<xsl:template match="w:pPr" ></xsl:template>
- <xsl:template match="w:r" ></xsl:template>
+  <xsl:template match="w:pPr"/>
+  <xsl:template match="w:r"/>
 
   <xsl:template name="writeListItem">
     <xsl:variable name="rendValues">
