@@ -98,6 +98,9 @@ function transformTextNode (elem, refs, startingRefs, endingRefs, wordOffset) {
 	var parentElem = elem.parentNode;
 	var text = elem.textContent;
 	text = text.replace(/^\s+/, "").replace(/\s+$/, "");
+	if (text.length === 0) {
+		return 0;
+	}
 	var words = text.split(/\s+/);
 
 	var myStartingRefs = [];
