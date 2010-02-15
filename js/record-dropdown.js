@@ -25,7 +25,6 @@ function recordDetails(title,image){
   	this.image = image;
 }
 
-console.log("here");
 	var divo = document.getElementById("common-recordos-drop-div");
 	var inp = document.getElementById("common-recordos-pretend-dropdown");
 

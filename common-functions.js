@@ -535,7 +535,7 @@ function uploadFile(id){
 	};
 
 	var fileUploadErrorCallback = function(record, error) {
-		console.log(error);
+		alert(error);
 	};
 	HeuristScholarDB.saveFile(file, new HSaver(fileCallback, fileUploadErrorCallback));
 
@@ -662,7 +662,6 @@ function saveRecord(record) {
 					 window.opener.document.getElementById("search").value = "";
 				}
 				if (window.opener.document.getElementById("linked-results") || window.opener.document.getElementById("image-results")) {
-					console.log("HERERE");
 					if (window.opener.document.getElementById("active-search") == "image") {
 						window.opener.document.getElementById("image-search").value = "id:"+r.getID();
 						eval(window.opener.document.getElementById("image-search-form").onsubmit());

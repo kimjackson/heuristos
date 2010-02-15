@@ -180,8 +180,8 @@ function transformTextNode (elem, refs, startingRefs, endingRefs, wordOffset) {
 		startPositions = startPositions.sort(sortfunc);
 		endPositions = endPositions.sort(sortfunc);
 
-console.log("startPositions:" + startPositions.toSource());
-console.log("endPositions:" + endPositions.toSource());
+//console.log("startPositions:" + startPositions.toSource());
+//console.log("endPositions:" + endPositions.toSource());
 
 		var refStack = [];
 		var sections = [];
@@ -239,7 +239,7 @@ console.log("endPositions:" + endPositions.toSource());
 			section.endWord = words.length;
 			sections.push(section);
 		}
-console.log("sections: " + sections.toSource());
+//console.log("sections: " + sections.toSource());
 
 		for (var i = 0; i < sections.length; ++i) {
 			var section = sections[i];

@@ -182,7 +182,7 @@ function uploadFile(id){
 	 var recordCallback = function(record) {
 	};
 	var fileUploadErrorCallback = function(record, error) {
-	console.log(error);
+	alert(error);
 };
 HeuristScholarDB.saveFile(file, new HSaver(fileCallback, fileUploadErrorCallback));
 }
