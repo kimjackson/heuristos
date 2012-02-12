@@ -253,6 +253,27 @@ function transformTextNode (elem, refs, startingRefs, endingRefs, wordOffset) {
 				var ref = refs[section.refId];
 				var a = document.createElement("a");
 				a.className = (section.refCount > 1 ? "annotation multiple" : "annotation");
+				
+				var annotationType;
+				if(ref.annotationType == "Annotation Multimedia") {
+                    annotationType = " multimedia";
+                    } else if (ref.annotationType == "Annotation Map") {
+                    annotationType = " map";
+                    } else if (ref.annotationType == "Annotation Gloss") {
+                    annotationType = " gloss";
+                    } else if (ref.annotationType == "Annotation Entity") {
+                    annotationType = " entity";
+                    } else if (ref.annotationType == "Annotation Term") {
+                    annotationType = " term";
+                    } else if (ref.annotationType == "Annotation Text") {
+                    annotationType = " term";
+                    } else if (ref.annotationType == "Annotation HiRes") {
+                    annotationType = " hires";
+                    } else {
+                    annotationType = "";
+                }
+				
+				a.className += annotationType;
 				a.href = "#ref" + ref.recordID;
 				a.title = ref.title;
 				a.name = "ref" + ref.recordID;

@@ -194,6 +194,8 @@
 
 	<xsl:template name="add_ref">
 		<xsl:param name="ref"/>
+		
+		<!-- annotationType added below by Steven Hayes - 12/04/2011 - to facilitate annotation colours  -->
 		<script>
 			if (refs) {
 				refs.push( {
@@ -211,7 +213,8 @@
 					</xsl:choose>,
 				href : "../<xsl:value-of select="id"/>/?flavour=<xsl:value-of select="$flavour"/>#ref1",
 				title : "<xsl:call-template name="cleanQuote"><xsl:with-param name="string" select="detail[@id=160]"/></xsl:call-template>",
-				recordID : "<xsl:value-of select="id"/>"
+				recordID : "<xsl:value-of select="id"/>",
+				annotationType : "<xsl:value-of select="detail[@id=359]"/>"
 				} );
 			}
 		</script>

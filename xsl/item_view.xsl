@@ -450,6 +450,14 @@
 						border: 1px solid red;
 						margin: 0 1px;
 					}
+					a.annotation.entity {
+						color:white;
+						background-color: #AB658A;
+					}
+					a.annotation.multimedia {
+						color:white;
+						background-color: #658AAB;
+					}
 					a.annotation.multiple {
 						background-color: #ffff70;
 					}
@@ -568,15 +576,19 @@
 							<tr>
 								<xsl:if test=" $id != 2674">
 								<!--td style="font-size: 85%;padding-right:10px;">Add:</td-->
-								<td style="font-size: 85%;padding-right:10px; "><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=term','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Term"><img src='{$urlbase}/images/152.gif' align="absmiddle"/></a> Term annotation</td>
+								<td style="font-size: 85%;padding-right:10px; "><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=term','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Term"><img src='{$urlbase}/images/152.gif' align="absmiddle"/></a> Term</td>
 
-								<td style="font-size: 85%;padding-right:10px; "><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=multimedia','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Multimedia item"><img src='{$urlbase}/images/74.gif'  align="absmiddle"/></a> Multimedia annotation</td>
+									<td style="font-size: 85%;padding-right:10px;color: white;background-color: #658AAB; "><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=multimedia','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Multimedia annotation"><img src='{$urlbase}/images/74.gif'  align="absmiddle"/></a>Multimedia</td>
+									<td style="font-size: 85%;padding-right:10px; "><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=hires','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add HiRes annotation"><img src='{$urlbase}/images/74.gif'  align="absmiddle"/></a>Hi res</td>
+									<td style="font-size: 85%;padding-right:10px; "><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=map','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Map annotation"><img src='http://dos.heuristscholar.org/heurist/img/reftype/103.gif'  align="absmiddle"/></a>Map</td>
 
-								<td style="font-size: 85%;padding-right:10px; "><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=entity','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Entity"><img src='{$urlbase}/images/151.gif'  align="absmiddle"/></a> Entity annotation</td>
-								<td style="font-size: 85%;padding-right:10px; "><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=text','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Text"><img src='{$urlbase}/images/98.gif'  align="absmiddle"/></a> Text annotation</td>
+									<td style="font-size: 85%;padding-right:10px;color: white;background-color: #AB658A;" class="annotation entity"><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=entity','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Entity"><img src='{$urlbase}/images/151.gif'  align="absmiddle"/></a> Entity</td>
+									<td style="font-size: 85%;padding-right:10px; "><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=text','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Text annotation"><img src='{$urlbase}/images/98.gif'  align="absmiddle"/></a> Text annotation</td>
 
-								<td style="font-size: 85%;padding-right:10px;"><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=glossary','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Glossary"><img src='{$urlbase}/images/glossary1.gif'  align="absmiddle"/></a> Gloss annotation</td>
-								<td style="font-size: 85%;padding-right:10px;"><a  href='#' onclick="window.open('{$urlbase}/addrelationship.html?typeId=52&amp;source={export/references/reference/id}','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Relationship"><img src='{$urlbase}/images/52.gif'  align="absmiddle"/></a> Relationship</td>
+									<td style="font-size: 85%;padding-right:10px;"><a  href='#' onclick="window.open('{$urlbase}/edit-annotation.html?refid={export/references/reference/id}&amp;type=glossary','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Glossary annotation"><img src='{$urlbase}/images/glossary1.gif'  align="absmiddle"/></a> Gloss</td>
+								
+									
+									<td style="font-size: 85%;padding-right:10px;"><a  href='#' onclick="window.open('{$urlbase}/addrelationship.html?typeId=52&amp;source={export/references/reference/id}','','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;" title="add Relationship"><img src='{$urlbase}/images/52.gif'  align="absmiddle"/></a> Relationship</td>
 
 								</xsl:if>
 								<xsl:if test=" $id = 2674">

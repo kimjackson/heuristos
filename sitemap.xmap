@@ -50,6 +50,12 @@
 			<map:redirect-to uri="../{1}/?cocoon-view=wordmltotei"/>
 		</map:match>
 
+		<map:match pattern="rdf/*/*/*">
+			<map:generate src="http://dos.heuristscholar.org/heurist/php/hml.php?q={1}&amp;depth=1&amp;limit={2}&amp;offset={3}" label="hml"/>
+			<map:transform src="xsl/hml-to-rdf-v1.xsl"/>
+			<map:serialize type="html"/>
+		</map:match>
+
 		<map:match pattern="xml2/*">
 			<map:generate src="http://dos.heuristscholar.org/heurist/php/hml.php?q=ids:{1}&amp;depth=2" label="hml"/>
 			<map:transform src="xsl/heurist_legacy_xml.xsl"/>

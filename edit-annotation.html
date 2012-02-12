@@ -75,10 +75,15 @@ function loadOptions(record){
 				title  = "Term Annotation";
 				annotation_type = "term";
 				break;
-			case "Annotation Multimedia":
-			    document.getElementById("type").value = "Annotation Multimedia";
-				title  = "Multimedia Annotation";
-				annotation_type = "multimedia";
+			case "Annotation HiRes":
+			    document.getElementById("type").value = "Annotation HiRes";
+				title  = "HiRes Annotation";
+				annotation_type = "hires";
+				break;
+		    case "Annotation Map":
+			    document.getElementById("type").value = "Annotation Map";
+				title  = "Map Annotation";
+				annotation_type = "map";
 				break;
 			case "Annotation Text":
 			    document.getElementById("type").value = "Annotation Text";
@@ -150,6 +155,12 @@ function loadOptions(record){
 			case "multimedia":
 				title  = "Multimedia Annotation";
 				break;
+			case "hires":
+				title  = "HiRes Annotation";
+				break;
+			case "map":
+				title  = "Map Annotation";
+				break;
 			case "text":
 				title  = "Text Annotation";
 				break;
@@ -191,6 +202,12 @@ function loadOptions(record){
 				break;
 			case "multimedia":
 				document.getElementById("type").value = "Annotation Multimedia";
+				break;
+			case "hires":
+				document.getElementById("type").value = "Annotation HiRes";
+				break;
+			case "map":
+				document.getElementById("type").value = "Annotation Map";
 				break;
 			case "text":
 				document.getElementById("type").value = "Annotation Text";
@@ -239,6 +256,12 @@ function loadOptions(record){
 			break;
 		case "multimedia":
 			return 74;
+			break;
+		case "hires":
+			return 168;
+			break;
+		case "map":
+			return 103;
 			break;
 		case "text":
 			return 98;
@@ -365,6 +388,12 @@ function loadOptions(record){
 			break;
 		case "multimedia":
 			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Multimedia\" onclick=\"addRecord(74, '" + active_search + "');\"/>";
+			break;
+		case "hires":
+			div.innerHTML += "<br><br><input type=\"button\" value=\"Add HiRes\" onclick=\"addRecord(168, '" + active_search + "');\"/>";
+			break;
+		case "map":
+			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Map\" onclick=\"addRecord(103, '" + active_search + "');\"/>";
 			break;
 		case "text":
 			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Text\" onclick=\"addRecord(98, '" + active_search + "');\"/>";
