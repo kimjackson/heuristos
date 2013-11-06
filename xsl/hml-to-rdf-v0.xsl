@@ -7,7 +7,7 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-    <xsl:output method="html" omit-xml-declaration="yes" encoding="UTF-8"/>
+
     <xsl:include href="dos_urlmap.xsl"/>
     
     <!-- note: make sure you have a fresh urlmap generated -->
@@ -20,13 +20,13 @@
 
         <!-- xsl:call-template name="model"/ -->
 
-        <xsl:apply-templates select="//record"/>
+        <xsl:apply-templates select="hml/records/record"/>
            
     </xsl:template>
 
 
     <xsl:template match="record">
-       
+
         <xsl:variable name="url-title">
             <xsl:call-template name="getPath">
                 <xsl:with-param name="id" select="id"/>

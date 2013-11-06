@@ -34,6 +34,8 @@
 
 <map:pipelines>
 	<map:pipeline>
+	
+		
 		<map:match pattern="item/*/hml">
 			<map:redirect-to uri="../../xml2/{1}?cocoon-view=hml"/>
 		</map:match>
@@ -55,6 +57,18 @@
 			<map:transform src="xsl/hml-to-rdf-v1.xsl"/>
 			<map:serialize type="html"/>
 		</map:match>
+		
+		<map:match pattern="rdfstatic/*">
+			<map:generate src="http://heuristscholar.org/dos-static-2013-02-15/repo/hml/{1}.xml"/>
+			<map:transform src="xsl/hml-to-rdf-v1.xsl"/>
+			<map:serialize type="html"/>
+		</map:match>
+
+		<map:match pattern="rdfold/*/*/*">
+			<map:generate src="http://dos.heuristscholar.org/heurist/php/hml.php?q={1}&amp;depth=1&amp;limit={2}&amp;offset={3}" label="hml"/>
+			<map:transform src="xsl/hml-to-rdf-v0.xsl"/>
+			<map:serialize type="xml"/>
+		</map:match>
 
 		<map:match pattern="xml2/*">
 			<map:generate src="http://dos.heuristscholar.org/heurist/php/hml.php?q=ids:{1}&amp;depth=2" label="hml"/>
@@ -74,7 +88,7 @@
 			<map:transform src="xsl/tei_to_html_basic.xsl" label="tei"/>
 			<map:serialize type="html"/>
 		</map:match>
-
+		
 		<map:match pattern="item/*">
 			<map:redirect-to uri="{1}/"/>
 		</map:match>
