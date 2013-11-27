@@ -15,7 +15,7 @@
 
 
 	function init() {
-		record_type = HRecordTypeManager.getRecordTypeById(99);
+		record_type = HRecordTypeManager.getRecordTypeById(15);
 		detail_types = HDetailManager.getDetailTypesForRecordType(record_type);
 		var matches = window.location.href.match(/[?&]id=([0-9]+)/);
 		if (matches) {
@@ -26,13 +26,13 @@
 	}
 
 function loadOptions(record){
-	//load options for dos.status dropdown 531
+	//load options for dos.status dropdown 89
 	var enums =[];
-	var recSelect = document.getElementById("531");
-	enums = HDetailManager.getDetailTypeById(531).getEnumerationValues();
+	var recSelect = document.getElementById("89");
+	enums = HDetailManager.getDetailTypeById(89).getEnumerationValues();
 
 	if (record) {
-	  var detail = record.getDetail(HDetailManager.getDetailTypeById(531));
+	  var detail = record.getDetail(HDetailManager.getDetailTypeById(89));
 	}
 	var opt = document.createElement("option");
 	opt.disabled = false;
@@ -62,59 +62,47 @@ function loadOptions(record){
 
 	function annotation_loaded() {
 	    // capitalize the title
-		var at = record.getDetail(HDetailManager.getDetailTypeById(359));
-	    var title;
+		var at = record.getDetail(HDetailManager.getDetailTypeById(52));
+		document.getElementById("type").value = at;
+		document.getElementById("pagetitle").innerHTML = "Add/edit " + at + " annotation";
 	    switch (at) {
-			case "Annotation Entity":
-			    document.getElementById("type").value = "Annotation Entity";
-				title = "Entity Annotation";
+			case "Entity":
 				annotation_type = "entity";
 				break;
-			case "Annotation Term":
-			    document.getElementById("type").value = "Annotation Term";
-				title  = "Term Annotation";
+			case "Term":
 				annotation_type = "term";
 				break;
-			case "Annotation HiRes":
-			    document.getElementById("type").value = "Annotation HiRes";
-				title  = "HiRes Annotation";
+			case "HiRes":
 				annotation_type = "hires";
 				break;
-		    case "Annotation Map":
-			    document.getElementById("type").value = "Annotation Map";
-				title  = "Map Annotation";
+		    case "Map":
 				annotation_type = "map";
 				break;
-			case "Annotation Text":
-			    document.getElementById("type").value = "Annotation Text";
-				title  = "Text Annotation";
+			case "Text":
 				annotation_type = "text";
 				break;
-			case "Annotation Gloss":
-			    document.getElementById("type").value = "Annotation Glossary";
-				title  = "Gloss Annotation";
+			case "Gloss":
 				annotation_type = "glossary";
 				break;
 		}
 
 
-		document.getElementById("pagetitle").innerHTML = "Add/edit " + title;
 		loadOptions(record);
 		for (var i in detail_types) {
 			var val = record.getDetail(detail_types[i]);
 			switch (detail_types[i].getID()) {
-				case 160: document.getElementById("title").value = val; break;
-				case 191: document.getElementById("notes").value = val; break;
-				case 322: break; // tei document reference - no need to load
-				case 539: document.getElementById("start_e").value = val; break;
-				case 540: document.getElementById("end_e").value = val; break;
-				case 329: document.getElementById("start_w").value = val; break;
-				case 330: document.getElementById("end_w").value = val; break;
-				case 359: document.getElementById("type").value = val; break;
-				case 303: document.getElementById(303).value = val; break;
-				case 531: document.getElementById(531).value = val; break;
-				case 199: if(val){setRecord(val.getID(), val.getTitle(), "linked");} break;
-				case 508: if(val){setRecord(val.getID(), val.getTitle(), "image");} break;
+				case 1: break; // shouldn't get these any more since they're VERBOTEN
+				case 4: document.getElementById("notes").value = val; break;
+				case 42: break; // tei document reference - no need to load
+				case 46: document.getElementById("start_e").value = val; break;
+				case 47: document.getElementById("end_e").value = val; break;
+				case 44: document.getElementById("start_w").value = val; break;
+				case 45: document.getElementById("end_w").value = val; break;
+				case 52: document.getElementById("type").value = val; break;
+				case 3: document.getElementById(3).value = val; break;
+				case 89: document.getElementById(89).value = val; break;
+				case 13: if(val){setRecord(val.getID(), val.getTitle(), "linked");} break;
+				case 61: if(val){setRecord(val.getID(), val.getTitle(), "image");} break;
 			}
 		}
 	}
@@ -255,16 +243,16 @@ function loadOptions(record){
 			return "term";
 			break;
 		case "multimedia":
-			return 74;
+			return 5;
 			break;
 		case "hires":
-			return 168;
+			return 11;
 			break;
 		case "map":
-			return 103;
+			return 28;
 			break;
 		case "text":
-			return 98;
+			return 13;
 			break;
 		default:
 			return null;
@@ -295,21 +283,21 @@ function loadOptions(record){
 
 			var val = null;
 			switch (detail_types[i].getID()) {
-				case 160: val = document.getElementById("title").value; break;
-				case 191: val = document.getElementById("notes").value; break;
-				case 322: val = related; break;
-				case 539: val = start_e; break;
-				case 540: val = end_e != start_e ? end_e : null; break;
-				case 329: val = start_w; break;
-				case 330: val = end_w != start_w ? end_w : null; break;
-				case 359: val = document.getElementById("type").value; break;
-				case 531: val = document.getElementById(531).value; break;
-				case 303: val = document.getElementById(303).value; break;
-				case 199: val = linked_record;  break;
-				case 508: val = image_record; break;
+				case 1: val = document.getElementById("title").value; break;
+				case 4: val = document.getElementById("notes").value; break;
+				case 42: val = related; break;
+				case 46: val = start_e; break;
+				case 47: val = end_e != start_e ? end_e : null; break;
+				case 44: val = start_w; break;
+				case 45: val = end_w != start_w ? end_w : null; break;
+				case 52: val = document.getElementById("type").value; break;
+				case 89: val = document.getElementById(89).value; break;
+				case 3: val = document.getElementById(3).value; break;
+				case 13: val = linked_record;  break;
+				case 61: val = image_record; break;
 			}
 
-			if (val || detail_types[i].getID() == 191 || detail_types[i].getID() == 303) {
+			if (val || detail_types[i].getID() == 4 || detail_types[i].getID() == 3) {
 				record.setDetails(detail_types[i], [val]);
 			}
 		}
@@ -336,7 +324,7 @@ function loadOptions(record){
 		}
 
 		if (active == "image") {
-			q = q + " type:74";
+			q = q + " type:5";
 		} else {
 			q += getSearchRestriction();
 		}
@@ -356,7 +344,7 @@ function loadOptions(record){
 		var div = document.getElementById(active +"-results");
 		var innerHTML = "";
 		for (var i = 0; i < r.length; i++) {
-			if (r[i].getRecordType().getID() != 52) {
+			if (r[i].getRecordType().getID() != 1) {
 				innerHTML += "<img src=/heurist/img/reftype/"+r[i].getRecordType().getID()+".gif> ";
 				innerHTML += "<a href=# onclick=\"setRecord("+r[i].getID()+", this.innerHTML, '" + active +"'); return false;\">" + r[i].getTitle() + "</a><br/>";
 				//innerHTML += "<a href=# onclick=\"setLinkedRecord("+r[i].getID()+", this.innerHTML); return false;\">" + r[i].getTitle() + "</a><br/>";
@@ -381,22 +369,22 @@ function loadOptions(record){
 
 		switch (annotation_type) {
 		case "entity":
-			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Entity\" onclick=\"addRecord(151, '" + active_search + "');\"/>";
+			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Entity\" onclick=\"addRecord(25, '" + active_search + "');\"/>";
 			break;
 		case "term":
-			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Term\" onclick=\"addRecord(152, '" + active_search + "');\"/>";
+			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Term\" onclick=\"addRecord(29, '" + active_search + "');\"/>";
 			break;
 		case "multimedia":
-			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Multimedia\" onclick=\"addRecord(74, '" + active_search + "');\"/>";
+			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Multimedia\" onclick=\"addRecord(5, '" + active_search + "');\"/>";
 			break;
 		case "hires":
-			div.innerHTML += "<br><br><input type=\"button\" value=\"Add HiRes\" onclick=\"addRecord(168, '" + active_search + "');\"/>";
+			div.innerHTML += "<br><br><input type=\"button\" value=\"Add HiRes\" onclick=\"addRecord(11, '" + active_search + "');\"/>";
 			break;
 		case "map":
-			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Map\" onclick=\"addRecord(103, '" + active_search + "');\"/>";
+			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Map\" onclick=\"addRecord(28, '" + active_search + "');\"/>";
 			break;
 		case "text":
-			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Text\" onclick=\"addRecord(98, '" + active_search + "');\"/>";
+			div.innerHTML += "<br><br><input type=\"button\" value=\"Add Text\" onclick=\"addRecord(13, '" + active_search + "');\"/>";
 			break;
 		}
 		return div;
@@ -551,10 +539,10 @@ function loadOptions(record){
     </td>
    </tr>
  <tr>
-    <td>dos.notes</td><td colspan=3><textarea id=303 style="width: 70ex;"></textarea></td>
+    <td>dos.notes</td><td colspan=3><textarea id=3 style="width: 70ex;"></textarea></td>
    </tr>
    <tr>
-    <td>dos.status</td><td colspan=3><select id="531"></select></td>
+    <td>dos.status</td><td colspan=3><select id="89"></select></td>
    </tr>
    <tr><td>&nbsp;</td></tr>
    <tr>
