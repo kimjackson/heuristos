@@ -42,7 +42,9 @@ function getSelectionAddress (root) {
 
 
 	var startAddr, endAddr;
-	[ startAddr, endAddr ] = findSelection(root, startNode, endNode);
+	var rv = findSelection(root, startNode, endNode);
+	startAddr = rv[0];
+	endAddr = rv[1];
 
 	// use the range's startContainer and endContainer to determine word offset
 	var startWord = findWordOffset(range.startContainer.textContent, range.startOffset, true);
