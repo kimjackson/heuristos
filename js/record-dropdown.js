@@ -1,17 +1,14 @@
 // This script populates and manipulates "add record" fake-dropdown menu
 // author: Maria Shvedova, 24/09/2008
 
-var path = "http://heuristscholar.org/heurist/";
-var urlbase = "/dos";
+var path = "/dos/";
 var recordos = [];
-  recordos[0] = new recordDetails("Term", "152");
-  recordos[1] = new recordDetails("Multimedia", "74");
-  recordos[2] = new recordDetails("Entity",  "151");
-  recordos[3] = new recordDetails("XML document", "98");
-  //recordos[4] = new recordDetails("Factoid", "150");
-  recordos[4] = new recordDetails("Contributor", "153");
-  recordos[5] = new recordDetails("Reference", "154");
-  recordos[6] = new recordDetails("External Link", "1");
+  recordos[0] = new recordDetails("Term", "29");
+  recordos[1] = new recordDetails("Multimedia", "5");
+  recordos[2] = new recordDetails("Entity",  "25");
+  recordos[3] = new recordDetails("XML document", "13");
+  recordos[4] = new recordDetails("Contributor", "24");
+  recordos[6] = new recordDetails("External Link", "2");
 
 recordos.sort(sortrecordos);
 
@@ -78,7 +75,7 @@ function recordDetails(title,image){
 			setTimeout("inp.value = \"Add record \"; inp.removeAttribute(\"style\");",5000);
 			divo.style.display = "none";
 			setDropDownOnclick(imgArrow);
-			window.open(urlbase + "/edit.html?typeId=" + obj.image,'','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;
+			window.open(path + "edit.html?typeId=" + obj.image,'','status=0,scrollbars=1,resizable=1,width=800,height=600'); return false;
 
 		}
 	}
