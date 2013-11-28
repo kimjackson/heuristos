@@ -27,8 +27,8 @@ function load(id) {
 
 function annotation_loaded(record) {
 	var elts = document.getElementById("footnotes-inner");
-	var notes = record.getDetail(HDetailManager.getDetailTypeById(top.HEURIST.magicNumbers['DT_SHORT_SUMMARY']));
-	var val = record.getDetail(HDetailManager.getDetailTypeById(top.HEURIST.magicNumbers['DT_RESOURCE']));
+	var notes = record.getDetail(HDetailManager.getDetailTypeById(HAPI_commonData.magicNumbers['DT_SHORT_SUMMARY']));
+	var val = record.getDetail(HDetailManager.getDetailTypeById(HAPI_commonData.magicNumbers['DT_RESOURCE']));
 	if (val) {
 		HeuristScholarDB.loadRecords(
 			new HSearch("id:"+val.getID()),
@@ -44,10 +44,10 @@ function annotation_loaded(record) {
 
 function MM_loaded(val,record) {
 	var elts = document.getElementById("footnotes-inner");
-	var title = val.getDetail(HDetailManager.getDetailTypeById(top.HEURIST.magicNumbers['DT_NAME']));
-	var notes = val.getDetail(HDetailManager.getDetailTypeById(top.HEURIST.magicNumbers['DT_SHORT_SUMMARY']));
-	var start = val.getDetail(HDetailManager.getDetailTypeById(top.HEURIST.magicNumbers['DT_START_DATE']));
-	var finish = val.getDetail(HDetailManager.getDetailTypeById(top.HEURIST.magicNumbers['DT_END_DATE']));
+	var title = val.getDetail(HDetailManager.getDetailTypeById(HAPI_commonData.magicNumbers['DT_NAME']));
+	var notes = val.getDetail(HDetailManager.getDetailTypeById(HAPI_commonData.magicNumbers['DT_SHORT_SUMMARY']));
+	var start = val.getDetail(HDetailManager.getDetailTypeById(HAPI_commonData.magicNumbers['DT_START_DATE']));
+	var finish = val.getDetail(HDetailManager.getDetailTypeById(HAPI_commonData.magicNumbers['DT_END_DATE']));
 
 	elts.innerHTML += "<p>" + title + "</p>";
 	if (notes) {
@@ -55,8 +55,8 @@ function MM_loaded(val,record) {
 	}
 	elts.innerHTML += "<p>" + start + (finish ? " - " + finish : "") + "</p>";
 
-	if (val.getRecordType().getID() == top.HEURIST.magicNumbers['RT_MEDIA_RECORD']) {
-		var matches = val.getDetail(HDetailManager.getDetailTypeById(top.HEURIST.magicNumbers['DT_FILE_RESOURCE'])).getURL().match(/ulf_ID=([0-9a-f]+)/);
+	if (val.getRecordType().getID() == HAPI_commonData.magicNumbers['RT_MEDIA_RECORD']) {
+		var matches = val.getDetail(HDetailManager.getDetailTypeById(HAPI_commonData.magicNumbers['DT_FILE_RESOURCE'])).getURL().match(/ulf_ID=([0-9a-f]+)/);
 		if (matches) {
 			var img='/h3/common/php/resizeImage.php?w=400&ulf_ID=' + matches[1];
 			elts.innerHTML += "<br><a href=\""+pathDos+val.getID()+"\"><img src=\"" + img+ "\"/></a>";
