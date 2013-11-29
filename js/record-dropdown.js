@@ -27,7 +27,7 @@ function recordDetails(title,image){
 
 	inp.value = "Add record";
 	var imgArrow = document.getElementById("common-recordos-drop-img");
-	imgArrow.src = "http://heuristscholar.org/heurist/img/tdown.gif";
+	imgArrow.src = "/h3/common/images/tdown.gif";
 
 	function setDropDownOnclick(imgArrow){
 		imgArrow.onclick = function() {
@@ -55,7 +55,7 @@ function recordDetails(title,image){
  		var spaN = document.createElement("div");
 		var img = document.createElement("img");
 		if (recordos[s].image) {
-			img.src = path + "img/reftype/" + recordos[s].image + ".gif";
+			img.src = path + "images/types/" + recordos[s].image + ".gif";
 		} else {
 			img.src = path + "img/16x16.gif";
 		}

@@ -1,5 +1,5 @@
 var pathDos = "/cocoon/dos/browser/item/";
-var imgpath = "/dos/images/";
+var imgpath = "/dos/images/types/";
 
 function showFootnote(recordID) {
 	document.getElementById("page").style.bottom = "205px";
