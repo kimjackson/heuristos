@@ -31,8 +31,8 @@ function ssearch() {
 				alert("load failed: " + e);
 			}
 		);
-		//f:359:\"Annotation Multimedia\"
-		loadAllRecords("type:99 sortby:id", null, loader);
+		//f:52:\"Annotation Multimedia\"
+		loadAllRecords("type:15 sortby:id", null, loader);
 }
 
 function loadAllRecords(query, options, loader) {
@@ -63,12 +63,12 @@ function displayResults(r) {
 	var recId = getParams("id");
 	var count = 0;
 	for (var i = 0; i < r.length; i++) {
-		var annotationType = r[i].getDetail(HDetailManager.getDetailTypeById(359));
-		var caption = r[i].getDetail(HDetailManager.getDetailTypeById(191));
-		var notes = r[i].getDetail(HDetailManager.getDetailTypeById(303));
-		var annotates = r[i].getDetail(HDetailManager.getDetailTypeById(322)).getID();
-		var target = r[i].getDetail(HDetailManager.getDetailTypeById(199));
-		var image_reference = r[i].getDetail(HDetailManager.getDetailTypeById(508));
+		var annotationType = r[i].getDetail(HDetailManager.getDetailTypeById(52));
+		var caption = r[i].getDetail(HDetailManager.getDetailTypeById(4));
+		var notes = r[i].getDetail(HDetailManager.getDetailTypeById(3));
+		var annotates = r[i].getDetail(HDetailManager.getDetailTypeById(42)).getID();
+		var target = r[i].getDetail(HDetailManager.getDetailTypeById(5));
+		var image_reference = r[i].getDetail(HDetailManager.getDetailTypeById(61));
 
 		if ((recId && annotates == recId) && annotationType == "Annotation Multimedia") {
 			var class = (count % 2 == 1) ? "alternate" : "";
@@ -114,10 +114,10 @@ function gatherImages(rid, target, image_reference){
 }
 
 function renderImage(record, rid){
- //if record is not of type 74 , dismiss
+ //if record is not of type 5 , dismiss
  	var cell0 = document.getElementById("im" + rid);
- 	if (record.getRecordType(HRecordTypeManager.getRecordTypeById(74))){
-		var thumb = record.getDetail(HDetailManager.getDetailTypeById(221));
+ 	if (record.getRecordType(HRecordTypeManager.getRecordTypeById(5))){
+		var thumb = record.getDetail(HDetailManager.getDetailTypeById(38));
 		if (thumb) {
 			cell0.innerHTML += "<img src=\"" + thumb.getThumbnailURL() + "\">";
 		} else {

@@ -237,7 +237,7 @@ function drawDateField(id, detail){
 	  }
 	  sel.innerHTML += html;
 	 }
-	 else if(!isEmpty(source_entity) && (id==528 || id==152)){ //this is specific for adding source reference to a factoid recordtype
+	 else if(!isEmpty(source_entity) && (id==87 || id==29)){ //this is specific for adding source reference to a factoid recordtype
 	  html = ""; //reset
 	  var count=0;
 	  html +=  "<div class=\"inp-div\"><input class=\"resource\" style=\"cursor:pointer\" mode=resource type=text recid=\"\" extra="+count+" id=\""+id+"\" name=\""+id+"\" value=\"\" ><img src=\""+path+"/img/cross.gif\" onclick=\"removeIt("+id+","+count+");\"></div>";
@@ -593,12 +593,6 @@ function saveRecord(record) {
 		var detailVariety = detTypes[d].getVariety();
 		var fields = document.getElementsByName(detTypes[d].getID());
 
-		// **** customize the form
-		//because v2 of HAPI does not distinguish boolean from literal, set detVariety "boolean" when the fields are "fictional" and "exists"
-		if(detTypes[d].getID()==524 || detTypes[d].getID()==525) {
-			detailVariety = "boolean";
-		}
-
 		if (fields.length === 0) continue;
 
 		for (f=0; f<fields.length; f++){
@@ -662,7 +656,7 @@ function saveRecord(record) {
     var saver = new HSaver(
 		function(r) {
 			alert ("Record saved");
-			if (rec_type_id == 150 || recType.getID() == 150){
+			if (rec_type_id == 26 || recType.getID() == 26){
 				window.opener.location.reload(true);
 			}
 //			if ((window.opener.location.pathname==("/dos/addrelationship.html")) || (window.opener.location.pathname == ("/dos/edit-annotation.html")) || (window.opener.location.pathname ==("/dos/edit-annotation-t.html"))) {

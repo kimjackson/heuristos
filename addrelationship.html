@@ -27,7 +27,7 @@
 
 	function init() {
 
-		record_type = HRecordTypeManager.getRecordTypeById(52);
+		record_type = HRecordTypeManager.getRecordTypeById(1);
 		detail_types = HDetailManager.getDetailTypesForRecordType(record_type);
 
 		// fill in Type options
@@ -73,9 +73,9 @@
 		//This function is used to save a HRelationship record
 	function saveRelationships(primaryRecord,relationType,secondRecord){
 		var hrelationship=new HRelationship(primaryRecord,relationType,secondRecord);
-		hrelationship.addDetail( HDetailManager.getDetailTypeById(160), document.getElementById("160").value );
-		hrelationship.addDetail( HDetailManager.getDetailTypeById(191), document.getElementById("191").value );
-		hrelationship.addDetail( HDetailManager.getDetailTypeById(303), document.getElementById("303").value );
+		hrelationship.addDetail( HDetailManager.getDetailTypeById(1), document.getElementById("1").value );
+		hrelationship.addDetail( HDetailManager.getDetailTypeById(4), document.getElementById("4").value );
+		hrelationship.addDetail( HDetailManager.getDetailTypeById(3), document.getElementById("3").value );
 
 		var saver = new HSaver(
 				function(r) {
@@ -111,7 +111,7 @@
 		var div = document.getElementById("results");
 		var innerHTML = "";
 		for (var i = 0; i < r.length; i++) {
-			if (r[i].getRecordType().getID() != 52) {
+			if (r[i].getRecordType().getID() != 1) {
 				innerHTML += "<img src=http://dos.heuristscholar.org/heurist/img/reftype/"+r[i].getRecordType().getID()+".gif> ";
 				innerHTML += "<a href=# onclick=\"setLinkedRecord("+r[i].getID()+", this.innerHTML); return false;\">" + r[i].getTitle() + "</a><br/>";
 			}
@@ -197,10 +197,10 @@
     <td>Select record type: </td><td><select id="record_type_select" onchange="changeType();"/></td>
    </tr-->
 	<tr>
-    <td>dc.title</td><td colspan=3><input type=text id=160 style="width: 60ex;"/></td>
+    <td>dc.title</td><td colspan=3><input type=text id=1 style="width: 60ex;"/></td>
    </tr>
     <tr>
-    <td>dc.description</td><td colspan=3><textarea id=191 style="width: 70ex;"></textarea></td>
+    <td>dc.description</td><td colspan=3><textarea id=4 style="width: 70ex;"></textarea></td>
    </tr>
    <tr>
     <td>primary_resource</td><td colspan=3><input type=text id=primaryrecord style="width: 60ex;"/></td>
@@ -226,7 +226,7 @@
     </td>
    </tr>
    <tr>
-    <td>dos.notes</td><td colspan=3><textarea id=303 style="width: 70ex;"></textarea></td>
+    <td>dos.notes</td><td colspan=3><textarea id=3 style="width: 70ex;"></textarea></td>
    </tr>
     <tr>
     <td><input type=button value=save onclick="save();"/></td>

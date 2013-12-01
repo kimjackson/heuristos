@@ -138,8 +138,6 @@ function drawInputFormDetails(detailId,rid){              //This function is use
 	var recType = record.getRecordType(); //HRecordType object
 	var detailType =  HDetailManager.getDetailTypeById(detailId); // HDetailType object
 	var detVariety = detailType.getVariety();
-	if(detailId==524 || detailId==525)      //because v2 of HAPI does not distinguish boolean from literal, set detVariety "boolean" when the fields are "fictional" and "exists"
-	   detVariety = "boolean";
 
 	var detail = record.getDetails(detailType);
 	switchDraw(detVariety,detailId,detail);
@@ -148,8 +146,6 @@ function drawInputFormDetails(detailId,rid){              //This function is use
 function drawInputFormForAdding(detailId,rectype){              //This function is used for adding
     var detailType =  HDetailManager.getDetailTypeById(detailId); // HDetailType object
 	var detVariety = detailType.getVariety();
-	if(detailId==524 || detailId==525)      //because v2 of HAPI does not distinguish boolean from literal, set detVariety "boolean" when the fields are "fictional" and "exists"
-	   detVariety = "boolean";
 	var detail;
 
 
