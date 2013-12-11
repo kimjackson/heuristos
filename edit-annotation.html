@@ -93,14 +93,14 @@ function loadOptions(record){
 			var val = record.getDetail(detail_types[i]);
 			switch (detail_types[i].getID()) {
 				case 1: break; // shouldn't get these any more since they're VERBOTEN
-				case 4: document.getElementById("notes").value = val; break;
+				case 3: document.getElementById("notes").value = val; break;
 				case 42: break; // tei document reference - no need to load
 				case 46: document.getElementById("start_e").value = val; break;
 				case 47: document.getElementById("end_e").value = val; break;
 				case 44: document.getElementById("start_w").value = val; break;
 				case 45: document.getElementById("end_w").value = val; break;
 				case 52: document.getElementById("type").value = val; break;
-				case 3: document.getElementById(3).value = val; break;
+				case 4: document.getElementById(4).value = val; break;
 				case 89: document.getElementById(89).value = val; break;
 				case 13: if(val){setRecord(val.getID(), val.getTitle(), "linked");} break;
 				case 61: if(val){setRecord(val.getID(), val.getTitle(), "image");} break;
@@ -285,7 +285,7 @@ function loadOptions(record){
 			var val = null;
 			switch (detail_types[i].getID()) {
 				case 1: val = document.getElementById("title").value; break;
-				case 4: val = document.getElementById("notes").value; break;
+				case 3: val = document.getElementById("notes").value; break;
 				case 42: val = related; break;
 				case 46: val = start_e; break;
 				case 47: val = end_e != start_e ? end_e : null; break;
@@ -293,7 +293,7 @@ function loadOptions(record){
 				case 45: val = end_w != start_w ? end_w : null; break;
 				case 52: val = document.getElementById("type").value; break;
 				case 89: val = document.getElementById(89).value; break;
-				case 3: val = document.getElementById(3).value; break;
+				case 4: val = document.getElementById(4).value; break;
 				case 13: val = linked_record;  break;
 				case 61: val = image_record; break;
 			}
@@ -540,7 +540,7 @@ function loadOptions(record){
     </td>
    </tr>
  <tr>
-    <td>dos.notes</td><td colspan=3><textarea id=3 style="width: 70ex;"></textarea></td>
+    <td>dos.notes</td><td colspan=3><textarea id=4 style="width: 70ex;"></textarea></td>
    </tr>
    <tr>
     <td>dos.status</td><td colspan=3><select id="89"></select></td>

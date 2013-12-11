@@ -32,7 +32,8 @@ function ssearch() {
 			}
 		);
 		//f:52:\"Annotation Multimedia\"
-		loadAllRecords("type:15 sortby:id", null, loader);
+		var recId = getParams("id");
+		loadAllRecords("type:15 field:42:" + recId + " sortby:id", null, loader);
 }
 
 function loadAllRecords(query, options, loader) {
@@ -64,16 +65,16 @@ function displayResults(r) {
 	var count = 0;
 	for (var i = 0; i < r.length; i++) {
 		var annotationType = r[i].getDetail(HDetailManager.getDetailTypeById(52));
-		var caption = r[i].getDetail(HDetailManager.getDetailTypeById(4));
-		var notes = r[i].getDetail(HDetailManager.getDetailTypeById(3));
+		var caption = r[i].getDetail(HDetailManager.getDetailTypeById(3));
+		var notes = r[i].getDetail(HDetailManager.getDetailTypeById(4));
 		var annotates = r[i].getDetail(HDetailManager.getDetailTypeById(42)).getID();
 		var target = r[i].getDetail(HDetailManager.getDetailTypeById(5));
 		var image_reference = r[i].getDetail(HDetailManager.getDetailTypeById(61));
 
 		if ((recId && annotates == recId) && annotationType == "Annotation Multimedia") {
-			var class = (count % 2 == 1) ? "alternate" : "";
+			var c = (count % 2 == 1) ? "alternate" : "";
 			var html = "";
-			html += "<tr class = \"" + class + "\">";
+			html += "<tr class = \"" + c + "\">";
 			html += "<td width=\"5%\"><b>"+ r[i].getID() +"</b></td>";
 			html += "<td width=\"19%\"><b>"+ r[i].getTitle() +"</b></td>";
 			html += "<td width=\"19%\">"+ (caption != null ? caption : "") +"</td>";
