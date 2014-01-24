@@ -212,10 +212,9 @@ function loadOptions(record){
 			refdoc_title = window.opener.getSelection().toString();
 		} catch (e) { }
 
+		document.getElementById("title").value = refdoc_title;
 		if (annotation_type == "entity") {
 			document.getElementById("linked-search").value = refdoc_title;
-		} else {
-			document.getElementById("title").value = refdoc_title;
 		}
 
 
@@ -346,7 +345,7 @@ function loadOptions(record){
 		var innerHTML = "";
 		for (var i = 0; i < r.length; i++) {
 			if (r[i].getRecordType().getID() != 1) {
-				innerHTML += "<img src=/heurist/img/reftype/"+r[i].getRecordType().getID()+".gif> ";
+				innerHTML += "<img src=/dos/images/types/"+r[i].getRecordType().getID()+".gif> ";
 				innerHTML += "<a href=# onclick=\"setRecord("+r[i].getID()+", this.innerHTML, '" + active +"'); return false;\">" + r[i].getTitle() + "</a><br/>";
 				//innerHTML += "<a href=# onclick=\"setLinkedRecord("+r[i].getID()+", this.innerHTML); return false;\">" + r[i].getTitle() + "</a><br/>";
 			}
