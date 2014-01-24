@@ -3,6 +3,7 @@ var resultsDiv;
 
 function search(query) {
 	if (! query) return;
+	showSearch(query);
 	var loader = new HLoader(
 		function(s,r,c) {
 			displayResults(s,r,c);
@@ -12,26 +13,42 @@ function search(query) {
 		}
 	);
 	loadAllRecords(query, null, loader);
-	//HeuristScholarDB.loadRecords(new HSearch(query), loader);
-	showSearch(query);
 }
+
 function loadAllRecords(query, options, loader) {
+		var PAGE_SIZE = 500;
 		var records = [];
 		var baseSearch = new HSearch(query, options);
+		var loadingMsgElem = document.getElementById('loading-msg');
+		var loadMoreLinkTop = document.getElementById('load-more-link-top');
+		var loadMoreLinkBottom = document.getElementById('load-more-link-bottom');
+
 		var bulkLoader = new HLoader(
 			function(s, r, c) {	// onload
 				records.push.apply(records, r);
-				document.getElementById('loading-msg').innerHTML = '<b>Loaded ' + records.length + ' of ' + c + ' records</b>';
+				loadingMsgElem.innerHTML = '<b>Loaded ' + records.length + ' of ' + c + ' records</b>';
 
 				if (records.length < c) {
 					// more records to retrieve
-					//  do a search with an offset specified for retrieving the next page of records
-					var search = new HSearch(query + " offset:"+records.length, options);
-					HeuristScholarDB.loadRecords(search, bulkLoader);
+					if (records.length % PAGE_SIZE == 0) {
+						// don't load any more for now; provide a link to load more
+						loader.onload(baseSearch, records, c);
+						loadMoreLinkTop.innerHTML = loadMoreLinkBottom.innerHTML = "Load more";
+						loadMoreLinkTop.onclick = loadMoreLinkBottom.onclick = function() {
+							var search = new HSearch(query + " offset:"+records.length, options);
+							HeuristScholarDB.loadRecords(search, bulkLoader);
+						};
+					}
+					else {
+						//  do a search with an offset specified for retrieving the next page of records
+						var search = new HSearch(query + " offset:"+records.length, options);
+						HeuristScholarDB.loadRecords(search, bulkLoader);
+					}
 				}
 				else {
 					// we've loaded all the records: invoke the original loader's onload
 					loader.onload(baseSearch, records, c);
+					loadMoreLinkTop.innerHTML = loadMoreLinkBottom.innerHTML = '';
 				}
 			},
 			loader.onerror
@@ -65,6 +82,9 @@ function showSearch(query) {
 	resultsDiv.innerHTML += "<a style=\"float: right;\" href=# onclick=\"hideResults(); return false;\">Return to previous view</a>";
 	resultsDiv.innerHTML += "<h2>Search results for query \"" + query + "\"</h2>";
 	resultsDiv.innerHTML += "<p id=loading-msg>Loading...</p>";
+	resultsDiv.innerHTML += "<p><a id=load-more-link-top href=\"#\"></a></p>";
+	resultsDiv.innerHTML += "<div id=results-inner />";
+	resultsDiv.innerHTML += "<p><a id=load-more-link-bottom href=\"#\"></a></p>";
 }
 
 function displayResults(s,r,c) {
@@ -78,9 +98,9 @@ function displayResults(s,r,c) {
 	}
 
 	if (innerHTML.length) {
-		resultsDiv.innerHTML += innerHTML;
+		document.getElementById("results-inner").innerHTML = innerHTML;
 	} else {
-		resultsDiv.innerHTML += "<p>No matching records</p>";
+		document.getElementById("results-inner").innerHTML = "<p>No matching records</p>";
 	}
 }
 
