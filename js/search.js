@@ -4,8 +4,8 @@ var resultsDiv;
 function search(query) {
 	if (! query) return;
 	var loader = new HLoader(
-		function(s,r) {
-			displayResults(s,r);
+		function(s,r,c) {
+			displayResults(s,r,c);
 		},
 		function(s,e) {
 			alert("load failed: " + e);
@@ -19,19 +19,19 @@ function loadAllRecords(query, options, loader) {
 		var records = [];
 		var baseSearch = new HSearch(query, options);
 		var bulkLoader = new HLoader(
-			function(s, r) {	// onload
+			function(s, r, c) {	// onload
 				records.push.apply(records, r);
-				if (r.length < 100) {
-					// we've loaded all the records: invoke the original loader's onload
-					document.getElementById('loading-msg').innerHTML = '<b>Loaded ' + records.length + ' records </b>';
-					loader.onload(baseSearch, records);
-				}
-				else { // more records to retrieve
-					document.getElementById('loading-msg').innerHTML = '<b>Loaded ' + records.length + ' records so far ...</b>';
+				document.getElementById('loading-msg').innerHTML = '<b>Loaded ' + records.length + ' of ' + c + ' records</b>';
 
+				if (records.length < c) {
+					// more records to retrieve
 					//  do a search with an offset specified for retrieving the next page of records
 					var search = new HSearch(query + " offset:"+records.length, options);
 					HeuristScholarDB.loadRecords(search, bulkLoader);
+				}
+				else {
+					// we've loaded all the records: invoke the original loader's onload
+					loader.onload(baseSearch, records, c);
 				}
 			},
 			loader.onerror
@@ -67,9 +67,9 @@ function showSearch(query) {
 	resultsDiv.innerHTML += "<p id=loading-msg>Loading...</p>";
 }
 
-function displayResults(s,r) {
-	var l = document.getElementById("loading-msg");
-	l.parentNode.removeChild(l);
+function displayResults(s,r,c) {
+	//var l = document.getElementById("loading-msg");
+	//l.parentNode.removeChild(l);
 
 	var innerHTML = "";
 	for (var i = 0; i < r.length; i++) {
