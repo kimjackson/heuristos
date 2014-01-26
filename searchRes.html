@@ -7,7 +7,6 @@
 
 
   <script>
-  var path ="http://heuristscholar.org/dos/";
   var rec_det_id = getParams("id");
   var t = getParams("t");
   var q = urldecode(getParams("q"));
@@ -83,7 +82,7 @@ function doSearch(){
 			var recTitle =r[i].getTitle();
 	        var newdiv = document.createElement('div');
 			newdiv.setAttribute("class", "mini-pad");
-			newdiv.innerHTML += "<span class=\"clickable\" onClick=\"pickMe("+recId+",'"+escape(recTitle)+"',"+rec_det_id+","+extra+");\">" +recId + " <img src=\""+ path +"img/reftype/"+recImage+".gif\" align=absmiddle> " +recTitle +"</span>";
+			newdiv.innerHTML += "<span class=\"clickable\" onClick=\"pickMe("+recId+",'"+escape(recTitle)+"',"+rec_det_id+","+extra+");\">" +recId + " <img src=\"images/types/"+recImage+".gif\" align=absmiddle> " +recTitle +"</span>";
 	        div.appendChild(newdiv);//append new div right after embedding code div
 	    }
 	}
