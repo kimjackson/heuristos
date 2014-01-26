@@ -35,8 +35,10 @@ function loadAllRecords(query, options, loader) {
 						loader.onload(baseSearch, records, c);
 						loadMoreLinkTop.innerHTML = loadMoreLinkBottom.innerHTML = "Load more";
 						loadMoreLinkTop.onclick = loadMoreLinkBottom.onclick = function() {
+							this.innerHTML = "Loading...";
 							var search = new HSearch(query + " offset:"+records.length, options);
 							HeuristScholarDB.loadRecords(search, bulkLoader);
+							return false;
 						};
 					}
 					else {
